@@ -222,11 +222,11 @@ frontend/
 
 | Home | Service details |
 |------|-----------------|
-| ![Home](./docs/screenshots/home.png) | ![Service](./docs/screenshots/service.png) |
+| ![Home](./docs/screenshots/home.png) | ![Service](./docs/screenshots/details.png) |
 
 | Booking flow | Provider dashboard |
 |--------------|--------------------|
-| ![Booking](./docs/screenshots/booking.png) | ![Dashboard](./docs/screenshots/provider.png) |
+| ![Booking](./docs/screenshots/bookings.png) | ![Dashboard](./docs/screenshots/provider.png) |
 
 ---
 
