@@ -253,9 +253,10 @@ frontend/
 
 ## Author
 
-**[Emmanuel kipngeno]**
-[Portfolio] | [LinkedIn] | [GitHub] | [Email]
+**Emmanuel Kipngeno**
+
+[Portfolio](https://kipngeno-creative-hub.onrender.com/) | [LinkedIn](https://linkedin.com/in/emmanuelkipngeno) | [GitHub](https://github.com/kkmanuu) | [Email](mailto:kipngenoemmanuel479@gmail.com)
 
 ## License
 
-[MIT / choose a license]
+MIT License
