@@ -208,14 +208,14 @@ Base path: `/api`. Protected routes require authentication.
 ## Project Structure
 
 ```
-backend/
+server/
   src/
     controllers/   # Route handlers (bookings, services, auth, ...)
     models/        # Mongoose schemas
     routes/        # Express routers
     socket/        # Socket.IO setup
     utils/         # notify, sendEmail, sendPush
-frontend/
+client/
   src/
     components/
     pages/
