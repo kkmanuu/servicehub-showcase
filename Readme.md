@@ -6,6 +6,9 @@
 
 > The app is hosted on a free tier, so the first load after inactivity can take 30-60 seconds while the server wakes up.
 
+> **About the source code:** ServiceHub is a private project that I'm continuing to develop toward a possible product launch, so the source repository is not public. This repo contains the project overview, screenshots, and architecture notes. **Code walkthroughs and read-only repository access are available on request.** See the contact details at the bottom.
+ 
+
 ![ServiceHub home page](./docs/screenshots/home.png)
 
 ---
@@ -23,7 +26,7 @@ Finding reliable local service providers is hard, especially in emerging markets
 
 ## The Solution
 
-ServiceHub gives customers one place to find verified providers, see clear pricing, book a time slot, pay with M-Pesa, track the job, and leave a review. Providers get a professional profile, a booking dashboard, and instant alerts for new requests.
+ServiceHub gives customers one place to find verified providers, see clear pricing, book a time slot, pay with M-Pesa, track the job, and leave a review. Providers get a professional profile, a booking dashboard, and instant alerts for new requests. Every provider is reviewed by an admin before they can receive bookings.
 
 ---
 
