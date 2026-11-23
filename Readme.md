@@ -81,7 +81,7 @@ Every transition notifies the other party in real time and by email.
 
 ## Tech Stack
 
-| Layer | Technology |
+ Layer | Technology |
 |-------|-----------|
 | Frontend | React, React Router, [Redux Toolkit / Context], [Tailwind CSS / MUI], Axios |
 | Backend | Node.js, Express |
@@ -91,19 +91,25 @@ Every transition notifies the other party in real time and by email.
 | Real-time | Socket.IO |
 | Notifications | Firebase Cloud Messaging (push), Brevo (email) |
 | Media | Multer, Cloudinary |
-| Hosting | Render (API and frontend), MongoDB Atlas |
+| Hosting | Render, MongoDB Atlas |
+ 
 
 ---
 
 ## Architecture Notes
 
-**Notification pipeline.** A single `notify()` helper handles every booking event. It saves an in-app notification, emits it over Socket.IO, sends an email, and delivers a push notification, while respecting each user's notification preferences. Controllers only call `notify()`, so adding a new event type needs no extra delivery code.
-
+**One notification pipeline.** A single `notify()` helper handles every booking event. It saves an in-app notification, emits it over Socket.IO, sends an email, and delivers a push notification, while respecting each user's preferences. Adding a new event type needs no extra delivery code.
+ 
+**Sockets announce changes; the API says what changed.** Real-time messages only say that something changed. The client then asks the normal API for fresh data, where authentication and validation already live. This keeps sensitive details off the socket.
+ 
 **M-Pesa STK Push.** The backend requests an STK Push from Safaricom's Daraja API, which shows a payment prompt on the customer's phone. The customer confirms with their M-Pesa PIN, and Safaricom reports the result to a callback endpoint on the API.
-
-**Email delivery on a free host.** Render's free tier blocks outbound SMTP ports (25, 465, 587), so SMTP-based libraries like Nodemailer time out in production even though they work locally. ServiceHub sends transactional email through Brevo's HTTPS API instead, which needs no SMTP ports and has a free tier. Email failures are caught and logged, so a mail problem can never break a booking.
-
-**Double-booking prevention.** Before a booking is created or rescheduled, the API checks for an active booking (pending, accepted, confirmed, or in progress) for the same provider, date, and time.
+ 
+**Provider approval gate.** A provider's services are only listed once an admin has approved them, and the booking API rejects bookings for unapproved providers.
+ 
+**Email on a restricted host.** Render's free tier blocks outbound SMTP ports, so SMTP-based email works locally but times out in production. I moved transactional email to an HTTPS API (Brevo), which needs no SMTP ports. Email failures are caught and logged, so a mail problem can never break a booking.
+ 
+**Double-booking prevention.** Before a booking is created or rescheduled, the API checks for an active booking for the same provider, date, and time.
+ 
 
 ---
 
@@ -251,25 +257,30 @@ client/
 
 ## Roadmap
 
+- Verification levels (Bronze, Silver, Gold) with third-party background checks
+- Account-based login protection (temporary lockouts after repeated failures)
 - Card payments (Stripe) and escrow with automatic provider payouts
 - In-app chat between customers and providers
-- Google Maps integration for service areas
+- Google Maps integration and service radius matching
+- Response rate and response time on provider profiles
 - SMS notifications
 - Swahili language support
 - Automated tests and CI/CD
+
 
 ---
 
 ## What I Learned
 
 - Designing a multi-role system (customer, provider, admin) with role-based authorization
+- Building a provider verification and admin approval workflow, and enforcing it on the server
+- Treating access control as a feature: private documents, authenticated sockets, and rate limits
 - Modeling a booking state machine and preventing double-booking
 - Integrating M-Pesa STK Push (Daraja) with asynchronous callbacks
 - Adding Google OAuth alongside email and password authentication
 - Building one notification pipeline that fans out to in-app, real-time, push, and email channels
-- Debugging a production-only failure: SMTP worked locally but was blocked on the host, which led to moving to an HTTPS email API
+- Debugging production-only failures: SMTP blocked on the host, and a real-time room design that trusted client input
 - Deploying a full MERN application with environment-based configuration
-
 ---
 
 ## Author
